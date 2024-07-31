@@ -70,7 +70,9 @@ class TestManufacturerModel(TestCase):
 class TestCarModel(TestCase):
     def test_str(self):
         model = "Test"
-        manufacturer = Manufacturer.objects.create(name="Test", country="Testland")
+        manufacturer = Manufacturer.objects.create(
+            name="Test", country="Testland"
+        )
         car = Car.objects.create(model=model, manufacturer=manufacturer)
         self.assertEqual(str(car), model)
 
@@ -78,7 +80,12 @@ class TestCarModel(TestCase):
 class TestDriverModel(TestCase):
     def test_str(self):
         driver = get_user_model().objects.create_user(**DEFAULT_USER_PARAMS)
-        self.assertEqual(str(driver), "{username} ({first_name} {last_name})".format(**DEFAULT_USER_PARAMS))
+        self.assertEqual(
+            str(driver),
+            "{username} ({first_name} {last_name})".format(
+                **DEFAULT_USER_PARAMS
+            ),
+        )
 
 
 class PublicTestIndexView(TestCase):
@@ -104,7 +111,9 @@ class PublicTestManufacturerCreateView(TestCase):
 
 class PublicTestManufacturerUpdateView(TestCase):
     def test_login_required(self):
-        manufacturer = Manufacturer.objects.create(name="Test", country="Testland")
+        manufacturer = Manufacturer.objects.create(
+            name="Test", country="Testland"
+        )
         url = reverse("taxi:manufacturer-update", args=(manufacturer.id,))
         response = self.client.get(url)
         self.assertNotEqual(response.status_code, 200)
@@ -112,7 +121,9 @@ class PublicTestManufacturerUpdateView(TestCase):
 
 class PublicTestManufacturerDeleteView(TestCase):
     def test_login_required(self):
-        manufacturer = Manufacturer.objects.create(name="Test", country="Testland")
+        manufacturer = Manufacturer.objects.create(
+            name="Test", country="Testland"
+        )
         url = reverse("taxi:manufacturer-delete", args=(manufacturer.id,))
         response = self.client.get(url)
         self.assertNotEqual(response.status_code, 200)
@@ -127,7 +138,9 @@ class PublicTestCarListView(TestCase):
 
 class PublicTestCarDetailView(TestCase):
     def test_login_required(self):
-        manufacturer = Manufacturer.objects.create(name="Test", country="Testland")
+        manufacturer = Manufacturer.objects.create(
+            name="Test", country="Testland"
+        )
         car = Car.objects.create(model="Test", manufacturer=manufacturer)
         url = reverse("taxi:car-detail", args=(car.id,))
         response = self.client.get(url)
@@ -143,7 +156,9 @@ class PublicTestCarCreateView(TestCase):
 
 class PublicTestCarUpdateView(TestCase):
     def test_login_required(self):
-        manufacturer = Manufacturer.objects.create(name="Test", country="Testland")
+        manufacturer = Manufacturer.objects.create(
+            name="Test", country="Testland"
+        )
         car = Car.objects.create(model="Test", manufacturer=manufacturer)
         url = reverse("taxi:car-update", args=(car.id,))
         response = self.client.get(url)
@@ -152,7 +167,9 @@ class PublicTestCarUpdateView(TestCase):
 
 class PublicTestCarDeleteView(TestCase):
     def test_login_required(self):
-        manufacturer = Manufacturer.objects.create(name="Test", country="Testland")
+        manufacturer = Manufacturer.objects.create(
+            name="Test", country="Testland"
+        )
         car = Car.objects.create(model="Test", manufacturer=manufacturer)
         url = reverse("taxi:car-delete", args=(car.id,))
         response = self.client.get(url)
@@ -161,7 +178,9 @@ class PublicTestCarDeleteView(TestCase):
 
 class PublicTestToggleAssignToCarView(TestCase):
     def test_login_required(self):
-        manufacturer = Manufacturer.objects.create(name="Test", country="Testland")
+        manufacturer = Manufacturer.objects.create(
+            name="Test", country="Testland"
+        )
         car = Car.objects.create(model="Test", manufacturer=manufacturer)
         url = reverse("taxi:toggle-car-assign", args=(car.id,))
         response = self.client.get(url)
@@ -177,9 +196,7 @@ class PublicTestDriverListView(TestCase):
 
 class PublicTestDriverDetailView(TestCase):
     def test_login_required(self):
-        driver = get_user_model().objects.create_user(
-            **DEFAULT_USER_PARAMS
-        )
+        driver = get_user_model().objects.create_user(**DEFAULT_USER_PARAMS)
         url = reverse("taxi:driver-detail", args=(driver.id,))
         response = self.client.get(url)
         self.assertNotEqual(response.status_code, 200)
@@ -194,9 +211,7 @@ class PublicTestDriverCreateView(TestCase):
 
 class PublicTestDriverLicenseUpdateView(TestCase):
     def test_login_required(self):
-        driver = get_user_model().objects.create_user(
-            **DEFAULT_USER_PARAMS
-        )
+        driver = get_user_model().objects.create_user(**DEFAULT_USER_PARAMS)
         url = reverse("taxi:driver-update", args=(driver.id,))
         response = self.client.get(url)
         self.assertNotEqual(response.status_code, 200)
@@ -204,9 +219,7 @@ class PublicTestDriverLicenseUpdateView(TestCase):
 
 class PublicTestDriverDeleteView(TestCase):
     def test_login_required(self):
-        driver = get_user_model().objects.create_user(
-            **DEFAULT_USER_PARAMS
-        )
+        driver = get_user_model().objects.create_user(**DEFAULT_USER_PARAMS)
         url = reverse("taxi:driver-delete", args=(driver.id,))
         response = self.client.get(url)
         self.assertNotEqual(response.status_code, 200)
@@ -214,9 +227,7 @@ class PublicTestDriverDeleteView(TestCase):
 
 class PrivateTestIndexView(TestCase):
     def setUp(self):
-        self.user = get_user_model().objects.create_user(
-            **DEFAULT_USER_PARAMS
-        )
+        self.user = get_user_model().objects.create_user(**DEFAULT_USER_PARAMS)
         self.client.force_login(self.user)
 
     def test_visit_counter(self):
@@ -229,9 +240,7 @@ class PrivateTestIndexView(TestCase):
 
 class PrivateTestManufacturerListView(TestCase):
     def setUp(self):
-        self.user = get_user_model().objects.create_user(
-            **DEFAULT_USER_PARAMS
-        )
+        self.user = get_user_model().objects.create_user(**DEFAULT_USER_PARAMS)
         self.client.force_login(self.user)
 
     def test_search(self):
@@ -249,15 +258,15 @@ class PrivateTestManufacturerListView(TestCase):
 
 class PrivateTestCarListView(TestCase):
     def setUp(self):
-        self.user = get_user_model().objects.create_user(
-            **DEFAULT_USER_PARAMS
-        )
+        self.user = get_user_model().objects.create_user(**DEFAULT_USER_PARAMS)
         self.client.force_login(self.user)
 
     def test_search(self):
         model1 = "Abc"
         model2 = "Def"
-        manufacturer = Manufacturer.objects.create(name="Test", country="Testland")
+        manufacturer = Manufacturer.objects.create(
+            name="Test", country="Testland"
+        )
         Car.objects.create(model=model1, manufacturer=manufacturer)
         Car.objects.create(model=model2, manufacturer=manufacturer)
         url = reverse("taxi:car-list")
@@ -293,16 +302,16 @@ class PrivateTestDriverListView(TestCase):
 
 class PrivateTestToggleAssignToCarView(TestCase):
     def setUp(self):
-        self.user = get_user_model().objects.create_user(
-            **DEFAULT_USER_PARAMS
-        )
+        self.user = get_user_model().objects.create_user(**DEFAULT_USER_PARAMS)
         self.client.force_login(self.user)
 
     def test_can_toggle_driver_to_car(self):
-        manufacturer = Manufacturer.objects.create(name="Test", country="Testland")
+        manufacturer = Manufacturer.objects.create(
+            name="Test", country="Testland"
+        )
         car = Car.objects.create(model="Test", manufacturer=manufacturer)
         url = reverse("taxi:toggle-car-assign", args=(car.id,))
-        response = self.client.get(url)
+        self.client.get(url)
         self.assertIn(car, self.user.cars.all())
-        response = self.client.get(url)
+        self.client.get(url)
         self.assertNotIn(car, self.user.cars.all())
