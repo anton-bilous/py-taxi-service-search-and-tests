@@ -10,6 +10,7 @@ from .forms import (
     DriverCreationForm,
     DriverLicenseUpdateForm,
     CarForm,
+    DriverSearchForm,
     CarSearchForm,
 )
 
@@ -102,6 +103,24 @@ class CarDeleteView(LoginRequiredMixin, generic.DeleteView):
 class DriverListView(LoginRequiredMixin, generic.ListView):
     model = Driver
     paginate_by = 5
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        username = self.request.GET.get("username", "")
+        context["search_form"] = DriverSearchForm(
+            initial={"username": username}
+        )
+        return context
+
+    def get_queryset(self):
+        form = DriverSearchForm(self.request.GET)
+
+        queryset = Driver.objects.all()
+        if form.is_valid():
+            return queryset.filter(
+                username__icontains=form.cleaned_data["username"]
+            )
+        return queryset
 
 
 class DriverDetailView(LoginRequiredMixin, generic.DetailView):
