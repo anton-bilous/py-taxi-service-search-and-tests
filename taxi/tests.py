@@ -59,16 +59,14 @@ class TestDriverCreationForm(TestCase):
         self.assertFalse(form.is_valid())
 
 
-class TestManufacturerModel(TestCase):
-    def test_str(self):
+class TestModels(TestCase):
+    def test_manufacturer_str(self):
         name = "Test"
         country = "Testland"
         manufacturer = Manufacturer.objects.create(name=name, country=country)
         self.assertEqual(str(manufacturer), f"{name} {country}")
 
-
-class TestCarModel(TestCase):
-    def test_str(self):
+    def test_car_str(self):
         model = "Test"
         manufacturer = Manufacturer.objects.create(
             name="Test", country="Testland"
@@ -76,9 +74,7 @@ class TestCarModel(TestCase):
         car = Car.objects.create(model=model, manufacturer=manufacturer)
         self.assertEqual(str(car), model)
 
-
-class TestDriverModel(TestCase):
-    def test_str(self):
+    def test_driver_str(self):
         driver = get_user_model().objects.create_user(**DEFAULT_USER_PARAMS)
         self.assertEqual(
             str(driver),
