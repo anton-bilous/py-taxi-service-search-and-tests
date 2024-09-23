@@ -84,29 +84,23 @@ class TestModels(TestCase):
         )
 
 
-class PublicTestIndexView(TestCase):
-    def test_login_required(self):
+class TestLoginRequired(TestCase):
+    def test_index_login_required(self):
         url = reverse("taxi:index")
         response = self.client.get(url)
         self.assertNotEqual(response.status_code, 200)
 
-
-class PublicTestManufacturerListView(TestCase):
-    def test_login_required(self):
+    def test_manufacturer_list_login_required(self):
         url = reverse("taxi:manufacturer-list")
         response = self.client.get(url)
         self.assertNotEqual(response.status_code, 200)
 
-
-class PublicTestManufacturerCreateView(TestCase):
-    def test_login_required(self):
+    def test_manufacturer_create_login_required(self):
         url = reverse("taxi:manufacturer-create")
         response = self.client.get(url)
         self.assertNotEqual(response.status_code, 200)
 
-
-class PublicTestManufacturerUpdateView(TestCase):
-    def test_login_required(self):
+    def test_manufacturer_update_login_required(self):
         manufacturer = Manufacturer.objects.create(
             name="Test", country="Testland"
         )
@@ -114,9 +108,7 @@ class PublicTestManufacturerUpdateView(TestCase):
         response = self.client.get(url)
         self.assertNotEqual(response.status_code, 200)
 
-
-class PublicTestManufacturerDeleteView(TestCase):
-    def test_login_required(self):
+    def test_manufacturer_delete_login_required(self):
         manufacturer = Manufacturer.objects.create(
             name="Test", country="Testland"
         )
@@ -124,16 +116,12 @@ class PublicTestManufacturerDeleteView(TestCase):
         response = self.client.get(url)
         self.assertNotEqual(response.status_code, 200)
 
-
-class PublicTestCarListView(TestCase):
-    def test_login_required(self):
+    def test_car_list_login_required(self):
         url = reverse("taxi:car-list")
         response = self.client.get(url)
         self.assertNotEqual(response.status_code, 200)
 
-
-class PublicTestCarDetailView(TestCase):
-    def test_login_required(self):
+    def test_car_detail_login_required(self):
         manufacturer = Manufacturer.objects.create(
             name="Test", country="Testland"
         )
@@ -142,16 +130,12 @@ class PublicTestCarDetailView(TestCase):
         response = self.client.get(url)
         self.assertNotEqual(response.status_code, 200)
 
-
-class PublicTestCarCreateView(TestCase):
-    def test_login_required(self):
+    def test_car_create_login_required(self):
         url = reverse("taxi:car-create")
         response = self.client.get(url)
         self.assertNotEqual(response.status_code, 200)
 
-
-class PublicTestCarUpdateView(TestCase):
-    def test_login_required(self):
+    def test_car_update_login_required(self):
         manufacturer = Manufacturer.objects.create(
             name="Test", country="Testland"
         )
@@ -160,9 +144,7 @@ class PublicTestCarUpdateView(TestCase):
         response = self.client.get(url)
         self.assertNotEqual(response.status_code, 200)
 
-
-class PublicTestCarDeleteView(TestCase):
-    def test_login_required(self):
+    def test_car_delete_login_required(self):
         manufacturer = Manufacturer.objects.create(
             name="Test", country="Testland"
         )
@@ -171,9 +153,7 @@ class PublicTestCarDeleteView(TestCase):
         response = self.client.get(url)
         self.assertNotEqual(response.status_code, 200)
 
-
-class PublicTestToggleAssignToCarView(TestCase):
-    def test_login_required(self):
+    def test_car_toggle_assign_login_required(self):
         manufacturer = Manufacturer.objects.create(
             name="Test", country="Testland"
         )
@@ -182,39 +162,29 @@ class PublicTestToggleAssignToCarView(TestCase):
         response = self.client.get(url)
         self.assertNotEqual(response.status_code, 200)
 
-
-class PublicTestDriverListView(TestCase):
-    def test_login_required(self):
+    def test_driver_list_login_required(self):
         url = reverse("taxi:driver-list")
         response = self.client.get(url)
         self.assertNotEqual(response.status_code, 200)
 
-
-class PublicTestDriverDetailView(TestCase):
-    def test_login_required(self):
+    def test_driver_detail_login_required(self):
         driver = get_user_model().objects.create_user(**DEFAULT_USER_PARAMS)
         url = reverse("taxi:driver-detail", args=(driver.id,))
         response = self.client.get(url)
         self.assertNotEqual(response.status_code, 200)
 
-
-class PublicTestDriverCreateView(TestCase):
-    def test_login_required(self):
+    def test_driver_create_login_required(self):
         url = reverse("taxi:driver-create")
         response = self.client.get(url)
         self.assertNotEqual(response.status_code, 200)
 
-
-class PublicTestDriverLicenseUpdateView(TestCase):
-    def test_login_required(self):
+    def test_driver_license_update_login_required(self):
         driver = get_user_model().objects.create_user(**DEFAULT_USER_PARAMS)
         url = reverse("taxi:driver-update", args=(driver.id,))
         response = self.client.get(url)
         self.assertNotEqual(response.status_code, 200)
 
-
-class PublicTestDriverDeleteView(TestCase):
-    def test_login_required(self):
+    def test_driver_delete_login_required(self):
         driver = get_user_model().objects.create_user(**DEFAULT_USER_PARAMS)
         url = reverse("taxi:driver-delete", args=(driver.id,))
         response = self.client.get(url)
